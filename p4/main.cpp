@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <gl/GL.h>
+#include <gl/GLU.h>
 
 #pragma comment (lib, "OpenGL32.lib")
 
@@ -43,6 +44,17 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		}
 		else if (wParam == '4') {
 			qno = 4;
+		}
+		else if (wParam == '5') {
+			qno = 5;
+		}
+
+		else if (wParam == '6') {
+			qno = 6;
+		}
+
+		else if (wParam == '7') {
+			qno = 7;
 		}
 		else if (wParam == VK_LEFT)
 		{
@@ -338,12 +350,201 @@ void p4Demo() {
 	drawCube(0.3, 0.6);
 }
 
+void drawSphere(double r) {
+	GLUquadricObj* sphere = NULL; //create the quadric obj pointer
+	sphere = gluNewQuadric(); // create the quadric ob in the memory
+	gluQuadricDrawStyle(sphere, GLU_LINE); // make it line to view
+
+	gluSphere(sphere, r, 30, 30);//draw sphere
+	gluDeleteQuadric(sphere); // Delete object and free memory
+
+}
+
+void drawTrueSphere(double r) {
+	GLUquadricObj* sphere = NULL; //create the quadric obj pointer
+	sphere = gluNewQuadric(); // create the quadric ob in the memory
+	//gluQuadricDrawStyle(sphere, GLU_LINE); // make it line to view
+
+	gluSphere(sphere, r, 30, 30);//draw sphere
+	gluDeleteQuadric(sphere); // Delete object and free memory
+
+}
+
+void drawCylinder(double br, double tr, double h) {
+	GLUquadricObj* cylinder = NULL; //create the quadric obj pointer
+	cylinder = gluNewQuadric(); // create the quadric ob in the memory
+	gluQuadricDrawStyle(cylinder, GLU_LINE); // make it line to view
+
+	gluCylinder(cylinder, br, tr, h, 10, 10);//draw sphere (base bottom, base top, height, slice, space
+	gluDeleteQuadric(cylinder); // Delete object and free memory
+
+
+}
+
+void drawTrueCylinder(double br, double tr, double h) {
+	GLUquadricObj* cylinder = NULL; //create the quadric obj pointer
+	cylinder = gluNewQuadric(); // create the quadric ob in the memory
+	//gluQuadricDrawStyle(cylinder, GLU_LINE); // make it line to view
+
+	gluCylinder(cylinder, br, tr, h, 10, 10);//draw sphere (base bottom, base top, height, slice, space
+	gluDeleteQuadric(cylinder); // Delete object and free memory
+
+
+}
+
+void drawCone(double tr, double h) {
+	GLUquadricObj* cone = NULL; //create the quadric obj pointer
+	cone = gluNewQuadric(); // create the quadric ob in the memory
+	gluQuadricDrawStyle(cone, GLU_LINE); // make it line to view
+
+	gluCylinder(cone, 0, tr, h, 10, 10);//draw sphere (base bottom, base top, height, slice, space
+	gluDeleteQuadric(cone); // Delete object and free memory
+
+
+}
+
+
+void drawTrueCone(double tr, double h) {
+	GLUquadricObj* cone = NULL; //create the quadric obj pointer
+	cone = gluNewQuadric(); // create the quadric ob in the memory
+	//gluQuadricDrawStyle(cone, GLU_LINE); // make it line to view
+
+	gluCylinder(cone, 0, tr, h, 10, 10);//draw sphere (base bottom, base top, height, slice, space
+	gluDeleteQuadric(cone); // Delete object and free memory
+
+
+}
+void p4BSphere() {
+	glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glLoadIdentity();
+
+	glRotatef(rotate, 1, 1, 1);
+	glColor3f(1, 0, 0);
+	glLineWidth(3.0);
+	drawSphere(0.2);
+
+
+
+
+
+}
+
+
+
+void p4BCylinder() {
+	glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glLoadIdentity();
+
+	glRotatef(rotate, 1, 1, 1);
+	glColor3f(1, 0, 0);
+	glLineWidth(3.0);
+
+	drawCylinder(0.5, 0.5, 1);
+
+
+
+}
+
+void p4BCone() {
+	glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glLoadIdentity();
+
+	glRotatef(rotate, 1, 1, 1);
+	glColor3f(1, 0, 0);
+	glLineWidth(3.0);
+
+	drawCone( 0.5, 1);
+
+
+
+}
+
+void icecream() {
+	glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
+	glColor3f(0.8, 0.63, 0.43);
+	glLineWidth(3.0);
+
+	glRotatef(0.1, 0,1,0);
+
+	glPushMatrix();
+	glTranslatef(0, -0.95, 0);
+
+	
+	glPushMatrix();
+
+	glRotatef(95, -0.5, 0, 0);
+
+
+	drawTrueCone(0.5, 1);
+
+	glColor3f(1,1,1);
+
+	
+
+	drawCone(0.5, 1);
+	glPopMatrix();
+	glPopMatrix();
+
+	glColor3f(0.95,0.89,0.67);
+	glPushMatrix();
+	glTranslatef(0, 0.05, -0.08);
+	drawTrueSphere(0.425);
+	glPopMatrix();
+
+	glColor3f(1,0.71,0.77);
+	glPushMatrix();
+	glTranslatef(0, 0.45, -0.08);
+	drawTrueSphere(0.425);
+	glPopMatrix();
+
+	glColor3f(0.25, 0.1, 0);
+	glPushMatrix();
+	glTranslatef(0.3, 0.7, -0.22);
+	drawTrueSphere(0.1);
+	glPopMatrix();
+
+	glColor3f(1, 0.5, 0.5);
+	glPushMatrix();
+	glTranslatef(0.25, 1.025, -0.22);
+	glPushMatrix();
+	glRotatef(90, 1, 0, 0);
+	glPushMatrix();
+	glRotatef(-30, 0, 1, 0);
+	drawTrueCylinder(0.05, 0.05, 0.25);
+	glPopMatrix();
+	glPopMatrix();
+	glPopMatrix();
+
+
+	glColor3f(1, 0.5, 0.5);
+	glPushMatrix();
+	glTranslatef(-0.25, 0.8, -0.22);
+
+	glPushMatrix();
+	glRotatef(5,1,0,0);
+	drawTrueCylinder(0.1, 0.1, 0.25);
+	glPopMatrix();
+	glPopMatrix();
+
+
+
+
+}
 
 void display()
 {
 	switch (qno) {
 	case 1:
-		drawRobotArm();
+		p4Demo();
 		break;
 	case 2:
 		drawPyramid(0.5);
@@ -352,7 +553,18 @@ void display()
 		drawRobotArm();
 		break;
 	case 4:
-		p4Demo();
+		p4BSphere();
+		break;
+
+	case 5:
+		p4BCylinder();
+		break;
+
+	case 6:
+		p4BCone();
+		break;
+	case 7:
+		icecream();
 		break;
 
 
